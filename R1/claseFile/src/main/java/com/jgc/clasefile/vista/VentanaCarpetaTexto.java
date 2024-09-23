@@ -5,6 +5,7 @@
 
 package com.jgc.clasefile.vista;
 
+import com.jgc.clasefile.controlador.ControlArchivo;
 import com.jgc.clasefile.controlador.ControlCarpeta;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
@@ -19,7 +20,8 @@ import java.io.InputStreamReader;
  */
 public class VentanaCarpetaTexto implements InterfazVista {
   private final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-  private ControlCarpeta controlador;
+  private ControlCarpeta controladorCarpeta;
+  private ControlArchivo controladorArchivo;
   private String ruta;
   
   
@@ -51,7 +53,9 @@ public class VentanaCarpetaTexto implements InterfazVista {
   
   public void mostrarMenu () {
     System.out.println("Indica la operacion que quieres realizar: ");
-    System.out.println("1: crear carpeta con ruta completa");
+    System.out.println("1: crear carpeta con ruta.");
+    System.out.println("2: crear carpeta pasando ruta padre y nombre de la carpeta.");
+    System.out.println("3: crear carpeta pasando un File y nombre de la carpeta.");
     System.out.println("0: salir");
   }
   
@@ -66,8 +70,16 @@ public class VentanaCarpetaTexto implements InterfazVista {
         System.exit(0);
       }
       case 1 -> {
-        
-        controlador.actionPerformed(new ActionEvent(this, opcion, CREAR_CARPETA_CON_RUTA_COMPLETA));
+        this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, CREAR_CARPETA_CON_RUTA_COMPLETA));
+      }
+      case 2 -> {
+        this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, CREAR_CARPETA_CON_RUTA_PADRE_Y_NOMBRE));
+      }
+      case 3 -> {
+        this.controladorCarpeta.actionPerformed(new ActionEvent(this, opcion, CREAR_CARPETA_CON_FILE_Y_NOMBRE));
+      }
+      case 4 -> {
+        this.controladorArchivo.actionPerformed(new ActionEvent(this, opcion, CREAR_ARCHIVO_CON_RUTA_Y_NOMBRE));
       }
       default -> {
         opcionInvalida();
@@ -84,18 +96,29 @@ public class VentanaCarpetaTexto implements InterfazVista {
   
  //----------------------------------------------------------------------|
   @Override
-  public void setControlador(ControlCarpeta c) {
-    this.controlador = c;
-  }
-
-  @Override
   public void arranca() {
     procesarNuevaOperacion();
   }
 
   @Override
   public String getRuta() {
-    System.out.println("Introduce la ruta: ");
+    System.out.print("Introduce la ruta: ");
     return leerString();
-  }  
+  }
+  
+  @Override
+  public String getNombre() {
+    System.out.print("Introduce el nuevo nombre: ");
+    return leerString();
+  }
+
+  @Override
+  public void setControladorCarpeta(ControlCarpeta cC) {
+    this.controladorCarpeta = cC;
+  }
+
+  @Override
+  public void setControladorArchivo(ControlArchivo cA) {
+    this.controladorArchivo = cA;
+  }
 }

@@ -6,9 +6,12 @@
 package com.jgc.clasefile.controlador;
 
 import com.jgc.clasefile.modelo.Carpeta;
+import com.jgc.clasefile.modelo.Archivo;
 import com.jgc.clasefile.vista.InterfazVista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Set;
 
 /**
  * clase encargada de comunicar la vista con el modelo
@@ -21,6 +24,7 @@ import java.awt.event.ActionListener;
 public class ControlCarpeta implements ActionListener {
   private final InterfazVista vista;
   private final Carpeta modelo;
+  private ControlArchivo controladorA;
   
  //----------------------------------------------------------------------|
   /**
@@ -32,9 +36,14 @@ public class ControlCarpeta implements ActionListener {
   public ControlCarpeta(InterfazVista vista, Carpeta modelo) {
     this.vista = vista;
     this.modelo = modelo;
-    
-    this.vista.setControlador(this);
+        
+    this.vista.setControladorCarpeta(this);
     this.vista.arranca();
+  }
+
+  public void setControladorArchivo(ControlArchivo controladorA) {
+    this.controladorA = controladorA;
+    this.vista.setControladorArchivo(controladorA);
   }
   
   
@@ -47,6 +56,14 @@ public class ControlCarpeta implements ActionListener {
     switch (evento.getActionCommand()) {
       case InterfazVista.CREAR_CARPETA_CON_RUTA_COMPLETA -> {
         modelo.crearCarpeta();
+      }
+      case InterfazVista.CREAR_CARPETA_CON_RUTA_PADRE_Y_NOMBRE -> {
+        String nombreCarpeta = vista.getNombre();
+        modelo.crearCarpeta(nombreCarpeta);
+      }
+      case InterfazVista.CREAR_CARPETA_CON_FILE_Y_NOMBRE -> {
+        String nombreCarpeta = vista.getNombre();
+        modelo.crearCarpeta(modelo.getFileDeRuta(), nombreCarpeta);
       }
     }
   }

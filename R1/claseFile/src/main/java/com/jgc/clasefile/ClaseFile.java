@@ -4,7 +4,9 @@
 
 package com.jgc.clasefile;
 
+import com.jgc.clasefile.controlador.ControlArchivo;
 import com.jgc.clasefile.controlador.ControlCarpeta;
+import com.jgc.clasefile.modelo.Archivo;
 import com.jgc.clasefile.modelo.Carpeta;
 import com.jgc.clasefile.vista.InterfazVista;
 import com.jgc.clasefile.vista.VentanaCarpetaTexto;
@@ -19,7 +21,9 @@ import com.jgc.clasefile.vista.VentanaCarpetaTexto;
 public class ClaseFile {
   public static void main(String[] args) {
     InterfazVista vista = new VentanaCarpetaTexto();
-    Carpeta modelo = new Carpeta();
-    ControlCarpeta control = new ControlCarpeta(vista, modelo);
+    Carpeta modeloC = new Carpeta();
+    Archivo modeloA = new Archivo();
+    ControlCarpeta controlC = new ControlCarpeta(vista, modeloC, controlA);
+    ControlArchivo controlA = new ControlArchivo(vista, modeloA, controlC);
   }
 }
