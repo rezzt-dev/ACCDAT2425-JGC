@@ -23,5 +23,7 @@ public class ClaseFile {
     Carpeta modeloCarpeta = new Carpeta ();
     ControladorArchivo controladorArchivo = new ControladorArchivo(vista, modeloArchivo);
     ControladorCarpeta controladorCarpeta = new ControladorCarpeta(vista, modeloCarpeta);
+    
+    vista.arranca();
   }
 }

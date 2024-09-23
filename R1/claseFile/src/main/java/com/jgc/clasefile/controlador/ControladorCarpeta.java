@@ -29,7 +29,6 @@ public class ControladorCarpeta implements ActionListener {
     this.vista = vistaInput;
     this.modelo = modeloInput;
     this.vista.setControladorCarpeta (this);
-    this.vista.arranca();
   }
   
   //------------------------------------------------>
