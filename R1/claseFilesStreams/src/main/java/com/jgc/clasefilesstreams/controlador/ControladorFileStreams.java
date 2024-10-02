@@ -9,6 +9,7 @@ import com.jgc.clasefilesstreams.modelo.FileStreamsModelo;
 import com.jgc.clasefilesstreams.vista.InterfazVista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Arrays;
 
 /**
@@ -114,6 +115,24 @@ public class ControladorFileStreams implements ActionListener {
         this.modelo.setPath(this.path);
         
         this.modelo.desencriptarFichero(this.path);
+        this.vista.operacionTerminada();
+      }
+      
+      case InterfazVista.LEER_CONTENIDO_ENCRIPTADO -> {
+        this.path = this.vista.getPath();
+        this.modelo.setPath(this.path);
+        
+        response = this.modelo.encriptarContenido(this.modelo.getFileFromRuta(this.path));
+        this.vista.escribeResultado(response.toString());
+        this.vista.operacionTerminada();
+      }
+      
+      case InterfazVista.LEER_CONTENIDO_DESENCRIPTADO -> {
+        this.path = this.vista.getPath();
+        this.modelo.setPath(this.path);
+        
+        response = this.modelo.desencriptarContenido(this.modelo.getFileFromRuta(this.path));
+        this.vista.escribeResultado(response.toString());
         this.vista.operacionTerminada();
       }
     }

@@ -236,6 +236,11 @@ public class FileStreamsModelo {
     return disencriptContent;
   }
   
+   // metodo "getFileFromRuta" =>
+  public File getFileFromRuta (String inputPath) {
+    return new File(inputPath);
+  }
+  
  //----------------------------------------------------------------------------->
  // getters & setters -->
   public String getPath () {

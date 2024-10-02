@@ -51,6 +51,8 @@ public class VentanaTexto implements InterfazVista {
     System.out.println(" 1. leer un fichero.");
     System.out.println(" 2. escribir un fichero.");
     System.out.println(" 3. des/encriptar un fichero.");
+    
+    System.out.println("\n 0. salir.");
   }
   
     // submetodo "mostrarMenuLeer" =>
@@ -59,6 +61,8 @@ public class VentanaTexto implements InterfazVista {
     System.out.println(" 1. leer fichero (caracter a caracter).");
     System.out.println(" 2. leer fichero (cadena de caracteres).");
     System.out.println(" 3. leer fichero (linea a linea).");
+    
+    System.out.println("\n 0. salir.");
   }
   
     // submetodo "mostrarMenuEscribir" =>
@@ -67,6 +71,8 @@ public class VentanaTexto implements InterfazVista {
     System.out.println(" 1. escribir un caracter.");
     System.out.println(" 2. escribir un conjunto de caracteres.");
     System.out.println(" 3. escribir una linea de texto.");
+    
+    System.out.println("\n 0. salir.");
   }
   
     // submetodo "mostrarMenuEncriptacion" =>
@@ -74,6 +80,10 @@ public class VentanaTexto implements InterfazVista {
     System.out.println("Indica que operacion quieres hacer: ");
     System.out.println(" 1. encriptar un fichero.");
     System.out.println(" 2. desencriptar un fichero.");
+    System.out.println(" 3. leer fichero encriptado.");
+    System.out.println(" 4. leer fichero desencriptado.");
+    
+    System.out.println("\n 0. salir.");
   }
   
   //----------------------------------------------------------------|
@@ -152,6 +162,14 @@ public class VentanaTexto implements InterfazVista {
           
           case 2 -> {
             this.controladorFileStreams.actionPerformed(new ActionEvent(this, opcionEncriptar, DESENCRIPTAR_FICHERO));
+          }
+          
+          case 3 -> {
+            this.controladorFileStreams.actionPerformed(new ActionEvent(this, opcionEncriptar, LEER_CONTENIDO_ENCRIPTADO));
+          }
+          
+          case 4 -> {
+            this.controladorFileStreams.actionPerformed(new ActionEvent(this, opcionEncriptar, LEER_CONTENIDO_DESENCRIPTADO));
           }
         }
       }

@@ -25,6 +25,9 @@ public interface InterfazVista {
    // constantes - des/encriptar fichero =>
   static final String ENCRIPTAR_FICHERO = "encripta un fichero y devuelve el archivo encriptado";
   static final String DESENCRIPTAR_FICHERO = "desencripta un archivo cifrado y lo devuleve en formato fichero";
+  static final String LEER_CONTENIDO_ENCRIPTADO = "lee el contenido de un fichero encriptado.";
+  static final String LEER_CONTENIDO_DESENCRIPTADO = "lee el contenido de un fichero desencriptado.";
+
   
  //----------------------------------------------------------------------------->
  // metodos publicos -->
