@@ -50,6 +50,7 @@ public class VentanaTexto implements InterfazVista {
     System.out.println("Indica la operacion que quieres realizar: ");
     System.out.println(" 1. leer un fichero.");
     System.out.println(" 2. escribir un fichero.");
+    System.out.println(" 3. des/encriptar un fichero.");
   }
   
     // submetodo "mostrarMenuLeer" =>

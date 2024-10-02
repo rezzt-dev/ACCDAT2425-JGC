@@ -16,13 +16,9 @@ import com.jgc.clasefilesstreams.vista.VentanaTexto;
 public class ClaseFilesStreams {
   public static void main(String[] args) {
     FileStreamsModelo modelo = new FileStreamsModelo();
-    /*
     InterfazVista vista = new VentanaTexto();
     ControladorFileStreams controlador = new ControladorFileStreams(vista, modelo);
     
     vista.arranca();
-    **/
-    
-    modelo.desencriptarFichero("./encripted.txt");
   }
 }
