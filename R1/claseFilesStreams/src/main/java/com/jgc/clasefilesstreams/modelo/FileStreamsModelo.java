@@ -19,6 +19,9 @@ import java.io.IOException;
  */
 public class FileStreamsModelo {
  // constantes y atributos -->
+  private static final String ALFABETO = "abcdefghijklmnopqrstuvwxyz";
+  private static final String CIFRADO = "4bcd3fgh1jklmzopqp5@7vwxy6";
+  
   private String path;
   
  //----------------------------------------------------------------------------->
@@ -103,24 +106,33 @@ public class FileStreamsModelo {
   }
   
    // metodo "escribirFicheroCaracter" =>
-  public void escribirFicheroCaracter (char inputChar, boolean noSobreescribir) {
+  public void escribirFicheroCaracter (char inputChar) {
     try {
       File outputFile = new File(this.path);
-      FileWriter writerOut = new FileWriter(outputFile, noSobreescribir);
       
+      if (!outputFile.exists()) {
+        outputFile.createNewFile();
+      }
+      
+      FileWriter writerOut = new FileWriter(outputFile, true);
       writerOut.write(inputChar);
-      
       writerOut.close();
+        
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
   
    // metodo "escribirFicheroCadena" =>
-  public void escribirFicheroCadena (String inputString, boolean noSobreescribir) {
+  public void escribirFicheroCadena (String inputString) {
     try {
       File outputFile = new File(this.path);
-      FileWriter writerOut = new FileWriter(outputFile, noSobreescribir);
+      
+      if (!outputFile.exists()) {
+        outputFile.createNewFile();
+      }
+      
+      FileWriter writerOut = new FileWriter(outputFile, true);
       
       for (int i=0; i < inputString.length(); i++) {
         writerOut.write(inputString.charAt(i));
@@ -133,10 +145,15 @@ public class FileStreamsModelo {
   }
   
    // metodo "escribirFicheroLinea" =>
-  public void escribirFicheroLinea (String inputLine, boolean noSobreescribir) {
+  public void escribirFicheroLinea (String inputLine) {
     try {
       File outputFile = new File(this.path);
-      FileWriter writerOut = new FileWriter(outputFile, noSobreescribir);
+      
+      if (!outputFile.exists()) {
+        outputFile.createNewFile();
+      }
+      
+      FileWriter writerOut = new FileWriter(outputFile, true);
       
       writerOut.write(inputLine);
       writerOut.write(System.lineSeparator());
@@ -145,6 +162,78 @@ public class FileStreamsModelo {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+  
+   // metodo "encriptarFichero" =>
+  public void encriptarFichero (String inputPath) {
+    this.path = inputPath;
+    File inputFile = new File(inputPath);
+    String parentPath = inputFile.getParent();
+    
+    String encriptContent = encriptarContenido(inputFile).toString();
+    
+    File encriptFile = new File(parentPath, "encripted.txt");
+    this.path = encriptFile.getAbsolutePath();
+    escribirFicheroLinea(encriptContent);
+  }
+  
+   // metodo "desencriptarFichero" =>
+  public void desencriptarFichero (String inputPath) {
+    this.path = inputPath;
+    File inputFile = new File(inputPath);
+    
+    String parentPath = inputFile.getParent();
+    String disencriptContent = desencriptarContenido(inputFile).toString();
+    
+    File disencriptFile = new File(parentPath, "disencript.txt");
+    this.path = disencriptFile.getAbsolutePath();
+    escribirFicheroLinea(disencriptContent);
+  }
+  
+   // metodo "encriptarContenido" =>
+  public StringBuffer encriptarContenido (File inputFile) {
+    this.path = inputFile.getAbsolutePath();
+    
+    StringBuffer rawContentBuffer = leerFicheroCaracter();
+    StringBuffer encriptContent = new StringBuffer();
+      
+    String rawContent = rawContentBuffer.toString();
+    rawContent = rawContent.toLowerCase();
+      
+    for (char c : rawContent.toCharArray()) {
+      int indice = ALFABETO.indexOf(c);
+        
+      if (indice != -1) {
+        encriptContent.append(CIFRADO.charAt(indice));
+      } else {
+        encriptContent.append(c);
+      }
+    }
+    
+    return encriptContent;
+  }
+  
+   // metodo "desencriptarContenido" =>
+  public StringBuffer desencriptarContenido (File inputFile) {
+    this.path = inputFile.getAbsolutePath();
+    
+    StringBuffer encriptContentBuffer = leerFicheroCaracter();
+    String encriptContent = encriptContentBuffer.toString();
+    encriptContent = encriptContent.toLowerCase();
+    
+    StringBuffer disencriptContent = new StringBuffer();
+    
+    for (char c : encriptContent.toCharArray()) {
+      int indice = CIFRADO.indexOf(c);
+      
+      if (indice != -1) {
+        disencriptContent.append(ALFABETO.charAt(indice));
+      } else {
+        disencriptContent.append(c);
+      }
+    }
+    
+    return disencriptContent;
   }
   
  //----------------------------------------------------------------------------->

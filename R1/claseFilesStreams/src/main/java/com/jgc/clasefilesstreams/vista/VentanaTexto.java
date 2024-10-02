@@ -68,6 +68,13 @@ public class VentanaTexto implements InterfazVista {
     System.out.println(" 3. escribir una linea de texto.");
   }
   
+    // submetodo "mostrarMenuEncriptacion" =>
+  private void mostrarMenuEncriptacion () {
+    System.out.println("Indica que operacion quieres hacer: ");
+    System.out.println(" 1. encriptar un fichero.");
+    System.out.println(" 2. desencriptar un fichero.");
+  }
+  
   //----------------------------------------------------------------|
    // metodo "procesarNuevaOperacion" =>
   private void procesarNuevaOperacion () {
@@ -124,6 +131,26 @@ public class VentanaTexto implements InterfazVista {
           
           case 3 -> {
             this.controladorFileStreams.actionPerformed(new ActionEvent(this, opcionEscribir, ESCRIBIR_FICHERO_LINEA));
+          }
+        }
+      }
+      
+      case 3 -> {
+        mostrarMenuEncriptacion();
+        int opcionEncriptar = leerOpcion();
+        
+        switch (opcionEncriptar) {
+          case 0 -> {
+            System.out.println("\n");
+            System.exit(0);
+          }
+          
+          case 1 -> {
+            this.controladorFileStreams.actionPerformed(new ActionEvent(this, opcionEncriptar, ENCRIPTAR_FICHERO));
+          }
+          
+          case 2 -> {
+            this.controladorFileStreams.actionPerformed(new ActionEvent(this, opcionEncriptar, DESENCRIPTAR_FICHERO));
           }
         }
       }

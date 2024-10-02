@@ -22,6 +22,10 @@ public interface InterfazVista {
   static final String ESCRIBIR_FICHERO_CADENA = "escribir una cadena de caracteres en un fichero";
   static final String ESCRIBIR_FICHERO_LINEA = "escribir una linea en un fichero";
   
+   // constantes - des/encriptar fichero =>
+  static final String ENCRIPTAR_FICHERO = "encripta un fichero y devuelve el archivo encriptado";
+  static final String DESENCRIPTAR_FICHERO = "desencripta un archivo cifrado y lo devuleve en formato fichero";
+  
  //----------------------------------------------------------------------------->
  // metodos publicos -->
   void setControladorFileStreams(ControladorFileStreams cFS);

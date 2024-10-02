@@ -9,6 +9,7 @@ import com.jgc.clasefilesstreams.modelo.FileStreamsModelo;
 import com.jgc.clasefilesstreams.vista.InterfazVista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 /**
  * 
@@ -22,6 +23,7 @@ public class ControladorFileStreams implements ActionListener {
   private FileStreamsModelo modelo;
   
   private String path;
+  private StringBuffer response;
   private boolean noSobreescribir;
   
  //----------------------------------------------------------------------------->
@@ -43,26 +45,26 @@ public class ControladorFileStreams implements ActionListener {
   public void actionPerformed (ActionEvent evento) {
     switch (evento.getActionCommand()) {
       case InterfazVista.LEER_FICHERO_CARACTER -> {
-        this.path = this.vista.getPath();
-        this.modelo.setPath(this.path);
+        this.modelo.setPath(this.vista.getPath());
         
-        this.modelo.leerFicheroCaracter();
+        this.response = this.modelo.leerFicheroCaracter();
+        this.vista.escribeResultado(response.toString());
         this.vista.operacionTerminada();
       }
       
       case InterfazVista.LEER_FICHERO_CADENA -> {
-        this.path = this.vista.getPath();
-        this.modelo.setPath(this.path);
+        this.modelo.setPath(this.vista.getPath());
         
-        this.modelo.leerFicheroCadena();
+        this.response = this.modelo.leerFicheroCadena();
+        this.vista.escribeResultado(response.toString());
         this.vista.operacionTerminada();
       }
       
       case InterfazVista.LEER_FICHERO_LINEA -> {
-        this.path = this.vista.getPath();
-        this.modelo.setPath(this.path);
+        this.modelo.setPath(this.vista.getPath());
         
-        this.modelo.leerFicheroLinea();
+        this.response = this.modelo.leerFicheroLinea();
+        this.vista.escribeResultado(response.toString());
         this.vista.operacionTerminada();
       }
       
@@ -70,10 +72,10 @@ public class ControladorFileStreams implements ActionListener {
         this.path = this.vista.getPath();
         this.modelo.setPath(this.path);
         
-        this.noSobreescribir = this.vista.sobreescribirFichero();
+         // this.noSobreescribir = this.vista.sobreescribirFichero();
         char inputChar = this.vista.leerChar();
         
-        this.modelo.escribirFicheroCaracter(inputChar, noSobreescribir);
+        this.modelo.escribirFicheroCaracter(inputChar);
         this.vista.operacionTerminada();
       }
       
@@ -81,10 +83,10 @@ public class ControladorFileStreams implements ActionListener {
         this.path = this.vista.getPath();
         this.modelo.setPath(this.path);
         
-        this.noSobreescribir = this.vista.sobreescribirFichero();
+         // this.noSobreescribir = this.vista.sobreescribirFichero();
         String inputChars = this.vista.leerString();
         
-        this.modelo.escribirFicheroCadena(inputChars, noSobreescribir);
+        this.modelo.escribirFicheroCadena(inputChars);
         this.vista.operacionTerminada();
       }
       
@@ -92,10 +94,26 @@ public class ControladorFileStreams implements ActionListener {
         this.path = this.vista.getPath();
         this.modelo.setPath(this.path);
         
-        this.noSobreescribir = this.vista.sobreescribirFichero();
+         // this.noSobreescribir = this.vista.sobreescribirFichero();
         String stringLine = this.vista.leerString();
         
-        this.modelo.escribirFicheroLinea(stringLine, noSobreescribir);
+        this.modelo.escribirFicheroLinea(stringLine);
+        this.vista.operacionTerminada();
+      }
+      
+      case InterfazVista.ENCRIPTAR_FICHERO -> {
+        this.path = this.vista.getPath();
+        this.modelo.setPath(this.path);
+        
+        this.modelo.encriptarFichero(this.path);
+        this.vista.operacionTerminada();
+      }
+      
+      case InterfazVista.DESENCRIPTAR_FICHERO -> {
+        this.path = this.vista.getPath();
+        this.modelo.setPath(this.path);
+        
+        this.modelo.desencriptarFichero(this.path);
         this.vista.operacionTerminada();
       }
     }
