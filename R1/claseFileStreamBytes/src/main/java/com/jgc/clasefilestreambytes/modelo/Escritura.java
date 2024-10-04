@@ -5,11 +5,13 @@
 
 package com.jgc.clasefilestreambytes.modelo;
 
+import com.jgc.clasefilestreambytes.modelo.myObject.MyObjectOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,6 +36,7 @@ public class Escritura extends Fichero {
   
  //----------------------------------------------------------------------------->
  // metodos publicos -->
+   // metodo "simpleDataWrite" =>
   public void simpleDataWrite () {
     DataOutputStream outputData = null;
 
@@ -51,14 +54,36 @@ public class Escritura extends Fichero {
       outputData.writeUTF("hola buenas");
       
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
     } catch (IOException e) {
-      e.printStackTrace();
     } finally {
       try {
         outputData.close();
       } catch (IOException e) {
-        e.printStackTrace();
+      }
+    }
+  }
+  
+   // metodo "readObjects" =>
+  public void readObjects (Object objInput) {
+    ObjectOutputStream outputData = null;
+    
+    try {
+      if (super.fileExist()) {
+         // archivo ya creado. no crea la cabecera.
+        outputData = new MyObjectOutputStream(new FileOutputStream (getPath(), true));
+      } else {
+         // primera vez que se crea el archivo. se crea la cabecera.
+        outputData = new ObjectOutputStream (new FileOutputStream(getPath()));
+      }
+      
+      outputData.writeObject(objInput);
+      
+    } catch (FileNotFoundException e) {
+    } catch (IOException e) {
+    } finally {
+      try {
+        outputData.close();
+      } catch (IOException e) {
       }
     }
   }

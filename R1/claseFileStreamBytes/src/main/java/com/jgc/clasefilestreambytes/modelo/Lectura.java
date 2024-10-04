@@ -9,6 +9,8 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 /**
  *
@@ -29,6 +31,7 @@ public class Lectura extends Fichero {
  // metodos privados -->
  //----------------------------------------------------------------------------->
  // metodos publicos -->
+   // metodo "simpleDataRead" =>
   public String simpleDataRead () {
     DataInputStream inputData = null;
     StringBuffer dataText = new StringBuffer();
@@ -64,18 +67,42 @@ public class Lectura extends Fichero {
       dataText.append(" ");
       
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
     } catch (IOException e) {
-      e.printStackTrace();
     } finally {
       try {
         inputData.close();
       } catch (IOException e) {
-        e.printStackTrace();
       }
     }
     
     return dataText.toString();
+  }
+  
+   // metodo "simpleDataRead" =>
+  public ArrayList<Object> readObejcts () {
+    ObjectInputStream inputData = null;
+    ArrayList<Object> returnList = new ArrayList<>();
+    Object tempObject = null;
+    
+    try {
+      inputData = new ObjectInputStream(new FileInputStream(getPath()));
+      
+      while (inputData.available() > 0) {
+        tempObject = inputData.readObject();
+        returnList.add(tempObject);
+      }
+      
+    } catch (ClassNotFoundException e) {
+    } catch (FileNotFoundException e) {
+    } catch (IOException e) {
+    } finally {
+      try {
+        inputData.close();
+      } catch (IOException e) {
+      }
+    }
+    
+    return returnList;
   }
   
  //----------------------------------------------------------------------------->

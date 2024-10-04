@@ -3,9 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.jgc.clasefilestreambytes.modelo;
+package com.jgc.clasefilestreambytes.modelo.myObject;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 /**
  *
@@ -13,31 +15,27 @@ import java.io.File;
  * @version 1.0
  * Created on 4 oct 2024
  */
-public class Fichero {
+public class MyObjectOutputStream extends ObjectOutputStream {
  // constantes y atributos -->
-  private File path;
   
  //----------------------------------------------------------------------------->
  // contructores -->
-  public Fichero (String inputPath) {
-    this.path = new File(inputPath);
+  public MyObjectOutputStream (OutputStream out) throws IOException {
+    super(out);
+  }
+  
+  protected MyObjectOutputStream () throws IOException {
+    super();
   }
   
  //----------------------------------------------------------------------------->
  // metodos privados -->
- //----------------------------------------------------------------------------->
- // metodos publicos -->
-  public boolean fileExist () {
-    return this.path.exists();
-  }
-
- //----------------------------------------------------------------------------->
- // getters & setters -->
-  public String getPath () {
-    return this.path.getAbsolutePath();
+  protected void writeStreamHeader () {
+    
   }
   
-  public void setPath (String inputPath) {
-    this.path = new File(inputPath);
-  }
+ //----------------------------------------------------------------------------->
+ // metodos publicos -->
+ //----------------------------------------------------------------------------->
+ // getters & setters -->
 }
