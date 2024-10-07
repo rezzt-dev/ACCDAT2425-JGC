@@ -25,7 +25,7 @@ public class MyObjectOutputStream extends ObjectOutputStream {
   }
   
   protected MyObjectOutputStream () throws IOException {
-    super();
+    reset();
   }
   
  //----------------------------------------------------------------------------->

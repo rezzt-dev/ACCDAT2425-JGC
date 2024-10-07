@@ -6,6 +6,7 @@
 package com.jgc.clasefilestreambytes.modelo;
 
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -79,31 +80,24 @@ public class Lectura extends Fichero {
   }
   
    // metodo "simpleDataRead" =>
-  public ArrayList<Object> readObejcts () {
-    ObjectInputStream inputData = null;
+  public ArrayList<Object> readObjects() {
     ArrayList<Object> returnList = new ArrayList<>();
-    Object tempObject = null;
     
-    try {
-      inputData = new ObjectInputStream(new FileInputStream(getPath()));
-      
-      while (inputData.available() > 0) {
-        tempObject = inputData.readObject();
-        returnList.add(tempObject);
-      }
-      
+    try (FileInputStream fis = new FileInputStream(getPath());
+      ObjectInputStream inputData = new ObjectInputStream(fis)) {
+      Object tempObject = inputData.readObject();
+      returnList.add(tempObject);
+      inputData.close();
+    } catch (EOFException e) {
+      // Fin del archivo, no es un error en este caso
     } catch (ClassNotFoundException e) {
-    } catch (FileNotFoundException e) {
+      System.err.println("Error: Clase no encontrada - " + e.getMessage());
     } catch (IOException e) {
-    } finally {
-      try {
-        inputData.close();
-      } catch (IOException e) {
-      }
+      System.err.println("Error de E/S: " + e.getMessage());
     }
     
     return returnList;
-  }
+}
   
  //----------------------------------------------------------------------------->
  // getters & setters -->

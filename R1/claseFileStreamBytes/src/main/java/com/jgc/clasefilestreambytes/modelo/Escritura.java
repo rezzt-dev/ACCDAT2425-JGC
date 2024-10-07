@@ -63,28 +63,12 @@ public class Escritura extends Fichero {
     }
   }
   
-   // metodo "readObjects" =>
-  public void readObjects (Object objInput) {
-    ObjectOutputStream outputData = null;
-    
-    try {
-      if (super.fileExist()) {
-         // archivo ya creado. no crea la cabecera.
-        outputData = new MyObjectOutputStream(new FileOutputStream (getPath(), true));
-      } else {
-         // primera vez que se crea el archivo. se crea la cabecera.
-        outputData = new ObjectOutputStream (new FileOutputStream(getPath()));
-      }
-      
+   // metodo "writeObjects" =>
+  public void writeObjects(Object objInput) {
+    try (ObjectOutputStream outputData = new ObjectOutputStream(new FileOutputStream(getPath()))) {
       outputData.writeObject(objInput);
-      
-    } catch (FileNotFoundException e) {
     } catch (IOException e) {
-    } finally {
-      try {
-        outputData.close();
-      } catch (IOException e) {
-      }
+      System.err.println("Error de E/S al escribir objeto: " + e.getMessage());
     }
   }
   
